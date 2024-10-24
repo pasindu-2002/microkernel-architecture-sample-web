@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microkernel Web App</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>TODO Application</h1>
+        <input type="text" id="inputTask" placeholder="New Task">
+        <input type="button" id="AddBtn" value="Add Task">
+
+        <div id="taskList"></div>
+    </div>
+
+    <script src="src/core/microkernel.js"></script>
+    <script src="src/components/taskComponent.js"></script>
+    
+    <script>
+        // Initialize Microkernel
+        const kernel = new Microkernel();
+        const taskComponent = new TaskComponent(kernel);
+
+        // Register Components
+        kernel.registerComponent("taskComponent", taskComponent);
+
+        // Event listener for adding a task
+        document.getElementById("AddBtn").addEventListener("click", () => {
+            const taskTitle = document.getElementById("inputTask").value;
+            if (taskTitle) {
+                kernel.publish("addTask", { title: taskTitle, dueDate: new Date().toLocaleDateString() });
+            }
+        });
+    </script>
+
+</body>
+</html>
