@@ -1,7 +1,7 @@
 class Microkernel {
 
     constructor() {
-        // Ensure both properties are correctly initialized
+        // properties initialized
         this.component = {};
         this.event = {};  
     }
